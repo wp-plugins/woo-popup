@@ -5,7 +5,7 @@
  * @package   WooPopup
  * @author    Guillaume Kanoufi <guillaume@lostwebdesigns.com>
  * @license   GPL-2.0+
- * @link      http://example.com
+ * @link      http://lostwebdesigns.com
  * @copyright 2014 woocommerce, popup, woopopup
  */
 
@@ -28,7 +28,7 @@ class WooPopup {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Unique identifier for your plugin.

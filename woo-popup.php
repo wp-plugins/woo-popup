@@ -13,8 +13,8 @@
  *
  * @wordpress-plugin
  * Plugin Name:       woo-popup
- * Plugin URI:        @TODO
- * Description:       Display a pop up window when clicking the add to cart or on the checkout page.
+ * Plugin URI:        http://wordpress.org/plugins/woo-popup/
+ * Description:       Display a pop up window on the page of your choice.
  * Version:           1.1.0
  * Author:            Guillaume Kanoufi
  * Author URI:        https://github.com/g-kanoufi

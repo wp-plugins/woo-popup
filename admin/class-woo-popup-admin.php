@@ -5,7 +5,7 @@
  * @package   WooPopupAdmin
  * @author    Guillaume Kanoufi <guillaume@lostwebdesigns.com>
  * @license   GPL-2.0+
- * @link      http://example.com
+ * @link      http://lostwebdesigns.com
  * @copyright 2014 woocommerce, popup, woopopup
  */
 
@@ -47,14 +47,6 @@ class WooPopupAdmin {
 	 */
 	private function __construct() {
 
-		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
 
 		$plugin = WooPopup::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
@@ -85,15 +77,6 @@ class WooPopupAdmin {
 	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
-
-		/*
-		 * @TODO :
-		 *
-		 * - Uncomment following lines if the admin class should only be available for super admins
-		 */
-		/* if( ! is_super_admin() ) {
-			return;
-		} */
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
@@ -139,7 +122,6 @@ class WooPopupAdmin {
 
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			// wp_enqueue_script('jquery-ui', '/wp-includes/js/jquery/ui/jquery.ui.core.min.js', array( 'jquery' ));
 			wp_enqueue_script( 'jquery-ui-datepicker' );
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', __FILE__ ), array( 'jquery' ), WooPopup::VERSION );
 		}
