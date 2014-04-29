@@ -196,6 +196,14 @@ class WooPopupAdmin {
 	    $valid['popup_class'] = sanitize_text_field($input['popup_class']);
 	    $valid['start_date'] = sanitize_text_field($input['start_date']);
 	    $valid['end_date'] = sanitize_text_field($input['end_date']);
+	    $valid['popup_timezone'] = sanitize_text_field($input['popup_timezone']);
+
+	    if(isset($input['popup_permanent'])){
+	    	  $valid['popup_permanent'] = sanitize_text_field($input['popup_permanent']);
+	    }else{
+	    	 $valid['popup_permanent'] = '0';
+	    }
+
 
 	    if (strlen($valid['popup_content']) == 0) {
 	        add_settings_error(
@@ -229,6 +237,7 @@ class WooPopupAdmin {
 
 	        $valid['popup_class'] = $this->data['popup_class'];
 	    }
+
 
 	    if (strlen($valid['start_date']) == 0) {
 	        add_settings_error(
