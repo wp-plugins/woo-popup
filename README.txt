@@ -4,7 +4,7 @@ Donate link: http://lostwebdesigns.com/
 Tags: pop up, woocommerce, woopopup, modal window, display info after a product is added
 Requires at least: 3.5.1
 Tested up to: 3.9
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,8 +58,11 @@ Just activate the plugin then go to the woo-popup menu and customize to your nee
 
 == Changelog ==
 
+= 1.2.1 =
+Fix a fatal error due to timezone list
+
 = 1.2 =
-Added option to display the popup permanently(no dates would then need to be selected) and possibility to choose the timezone you are in.
+Added option to display the popup permanently(no dates then need to be selected) and possibility to choose the timezone you are in.
 Also possibility to display the popup on all pages.
 
 = 1.1 =

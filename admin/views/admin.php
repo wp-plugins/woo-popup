@@ -100,7 +100,7 @@
 	                    </td>
 	                </tr>
 	                <tr class="woo-popup_dates">
-	                		<?php $tzl = DateTimeZone::listIdentifiers(DateTimeZone::ALL);?>
+	                		<?php $tzl = DateTimeZone::listIdentifiers();?>
 	                    <th scope="row">
 		                    <label><?php _e('Choose your Timezone', $this->plugin_slug);?>:</label>
 		               </th>
