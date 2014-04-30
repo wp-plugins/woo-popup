@@ -28,7 +28,7 @@ class WooPopup {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.1.0';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -66,9 +66,11 @@ class WooPopup {
 	private $options_data = array(
 		'popup_content' => 'This will be your pop up content',
 		'popup_page' => ' ',
-		'popup_class' => ' ',
+		'popup_class' => 'notice',
+		'popup_permanent' => '0', //Default set to 0 so date are apparant
 		'start_date' => '2014-02-02',  //Set up an old date so if default the pop up won't be fired
-		'end_date' => '2014-02-04'  //Set up an old date so if default the pop up won't be fired
+		'end_date' => '2014-02-04',  //Set up an old date so if default the pop up won't be fired
+		'popup_timezone' => 'Europe/Paris'
 	);
 
 	/**
@@ -278,7 +280,7 @@ class WooPopup {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		update_option('woo-popup_options', array( 'popup_content' => 'This will be your pop up content', 'popup_page' => ' ', 'popup_class' => ' ', 'start_date' => '2010-02-02', 'end_date' => '2010-02-04' ) );
+		update_option('woo-popup_options', array( 'popup_content' => 'This will be your pop up content', 'popup_page' => ' ', 'popup_class' => 'notice', 'popup_permanent' => '0', 'start_date' => date('Y-m-d', time()), 'end_date' => date('Y-m-d', time()), 'popup_timezone' => 'Europe/Paris' ));
 	}
 
 	/**
@@ -308,14 +310,22 @@ class WooPopup {
 	public function trigger_plugin(){
 		global $post;
 		$options = get_option($this->options_slug);
-		date_default_timezone_set('Australia/Sydney');
+		$tz = $options['popup_timezone'];
+		date_default_timezone_set($tz);
+		$page = $options['popup_page'];
 		$today = date('Y-m-d', time());
+		$permanent = $options['popup_permanent'];
 		$start_date = $options['start_date'];
 		$end_date = $options['end_date'];
 		$diff_start = strtotime($today) - strtotime($start_date);
 		$diff_end = strtotime($end_date) - strtotime($today);
+		if(is_shop()){
+			$page_id = get_option( 'woocommerce_shop_page_id' );
+		}else{
+			$page_id = $post->ID;
+		}
 
-		if($diff_start >= 0 && $diff_end >= 0 && $post->ID == $options['popup_page']){
+		if(($permanent == 1 || $diff_start >= 0 && $diff_end >= 0) && ($page == 'all' || $page_id == $page)){
 			return true;
 		}else{
 			return false;

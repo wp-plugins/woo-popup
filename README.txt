@@ -3,8 +3,8 @@ Contributors: Guillaume Kanoufi
 Donate link: http://lostwebdesigns.com/
 Tags: pop up, woocommerce, woopopup, modal window, display info after a product is added
 Requires at least: 3.5.1
-Tested up to: 3.8.1
-Stable tag: 1.1.0
+Tested up to: 3.9
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,8 @@ Display a pop up window after the chosen page is loaded.
 
 == Description ==
 
-A plugin to show a pop up window with any text, links, images, and even shortcodes when on the chosen page. Useful to present your customers with possible shipping delays if using woocommerce or anything else you can think about.
+A plugin to show a pop up window with any text, links, images, and even shortcodes when on the chosen page or all pages. Useful to present your customers with possible shipping delays if using woocommerce or anything else you can think about.
+You can use it permanently or between 2 defined dates.
 Was made for woocommerce, late shipping or important info at the begining, but can be used on any wordpress installation.
 
 == Installation ==
@@ -57,6 +58,13 @@ Just activate the plugin then go to the woo-popup menu and customize to your nee
 
 == Changelog ==
 
+= 1.2.1 =
+Fix a fatal error due to timezone list
+
+= 1.2 =
+Added option to display the popup permanently(no dates then need to be selected) and possibility to choose the timezone you are in.
+Also possibility to display the popup on all pages.
+
 = 1.1 =
 Added wpaoutop for formatting and possibility to add a class to the content.
 
@@ -65,6 +73,10 @@ Added wpaoutop for formatting and possibility to add a class to the content.
 
 
 == Updates ==
+
+= 1.2 =
+Added option to display the popup permanently(no dates would then need to be selected) and possibility to choose the timezone you are in.
+Also possibility to display the popup on all pages.
 
 = 1.1 =
 Added wpaoutop for formatting and possibility to add a class to the content.
