@@ -15,7 +15,7 @@
  * Plugin Name:       woo-popup
  * Plugin URI:        http://wordpress.org/plugins/woo-popup/
  * Description:       Display a pop up window on the page of your choice.
- * Version:           1.2.1
+ * Version:           1.2.2
  * Author:            Guillaume Kanoufi
  * Author URI:        https://github.com/g-kanoufi
  * Text Domain:       woo-popup-locale
