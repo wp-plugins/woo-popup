@@ -319,7 +319,7 @@ class WooPopup {
 		$end_date = $options['end_date'];
 		$diff_start = strtotime($today) - strtotime($start_date);
 		$diff_end = strtotime($end_date) - strtotime($today);
-		if(is_shop()){
+		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins'  )  )  ) && is_shop()){
 			$page_id = get_option( 'woocommerce_shop_page_id' );
 		}else{
 			$page_id = $post->ID;
