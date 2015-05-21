@@ -28,7 +28,7 @@ class WooPopup {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -280,7 +280,7 @@ class WooPopup {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		update_option('woo-popup_options', array( 'popup_content' => 'This will be your pop up content', 'popup_page' => ' ', 'popup_class' => 'notice', 'popup_permanent' => '0', 'start_date' => date('Y-m-d', time()), 'end_date' => date('Y-m-d', time()), 'popup_timezone' => 'Europe/Paris' ));
+		update_option('woo-popup_options', array( 'popup_content' => 'This will be your pop up content', 'popup_page' => ' ', 'popup_class' => 'notice', 'popup_theme' => 'pp_default', 'popup_permanent' => '0', 'start_date' => date('Y-m-d', time()), 'end_date' => date('Y-m-d', time()), 'popup_timezone' => 'Europe/Paris' ));
 	}
 
 	/**
@@ -308,7 +308,7 @@ class WooPopup {
 	}
 
 	public function trigger_plugin(){
-		global $post;
+		global $post, $popup_theme;
 		$options = get_option($this->options_slug);
 		$tz = $options['popup_timezone'];
 		date_default_timezone_set($tz);
@@ -317,6 +317,7 @@ class WooPopup {
 		$permanent = $options['popup_permanent'];
 		$start_date = $options['start_date'];
 		$end_date = $options['end_date'];
+		$popup_theme = $options['popup_theme'];
 		$diff_start = strtotime($today) - strtotime($start_date);
 		$diff_end = strtotime($end_date) - strtotime($today);
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins'  )  )  ) && is_shop()){
@@ -337,13 +338,11 @@ class WooPopup {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 			global $woocommerce;
-			$pp_dir['base'] = $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js';
-			$pp_dir['init'] = $woocommerce->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js';
+			$pp_dir['base'] = $woocommerce->plugin_url() . '/assets/js/jquery.prettyPhoto.js';
 			$pp_dir['style'] = $woocommerce->plugin_url() . '/assets/css/prettyPhoto.css';
 			$pp_dir['ver'] = $woocommerce->version;
 		}else{
-			$pp_dir['base'] = plugins_url( '/assets/js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', __FILE__ );
-			$pp_dir['init'] = plugins_url( '/assets/js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', __FILE__ );
+			$pp_dir['base'] = plugins_url( '/assets/js/jquery.prettyPhoto.js', __FILE__ );
 			$pp_dir['style'] = plugins_url( '/assets/css/prettyPhoto.css', __FILE__ );
 			$pp_dir['ver'] = '';
 		}
@@ -358,8 +357,8 @@ class WooPopup {
 	public function enqueue_styles() {
 		if($this->trigger_plugin() == true){
 			$pp_dir = $this->activated_woocommerce();
-			wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION );
-			wp_enqueue_style( 'woocommerce_prettyPhoto_css', $pp_dir['style'] );
+			wp_enqueue_style( 'prettyPhoto_css', $pp_dir['style']);
+			wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array('prettyPhoto_css'), self::VERSION   );
 		}
 	}
 
@@ -370,12 +369,18 @@ class WooPopup {
 	 */
 	public function enqueue_scripts() {
 		if($this->trigger_plugin() == true){
-			global $woocommerce;
+			global $woocommerce, $popup_theme;
 			$pp_dir = $this->activated_woocommerce();
-			wp_enqueue_script( 'prettyPhoto', $pp_dir['base'] , array( 'jquery' ), $pp_dir['ver'], true );
-			wp_enqueue_script( 'prettyPhoto-init', $pp_dir['init'], array( 'jquery' ), $pp_dir['ver'], true );
+			wp_enqueue_script( 'prettyPhoto', $pp_dir['base'] , array( 'jquery' ), $pp_dir['ver'] );
 
-			wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'prettyPhoto-init' ), self::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'prettyPhoto' ), self::VERSION, true );
+
+
+			// Passing Plugin Options to js
+			$plugin_data = array(
+			    'theme' =>  $popup_theme,
+			);
+			wp_localize_script( $this->plugin_slug . '-plugin-script', 'plugin_options_vars', $plugin_data );
 		}
 	}
 
