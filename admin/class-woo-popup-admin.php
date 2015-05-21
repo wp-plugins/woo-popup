@@ -194,6 +194,7 @@ class WooPopupAdmin {
 	    $valid['popup_content'] = wp_kses_post($input['popup_content']);
 	    $valid['popup_page'] = sanitize_text_field($input['popup_page']);
 	    $valid['popup_class'] = sanitize_text_field($input['popup_class']);
+	    $valid['popup_theme'] = sanitize_text_field($input['popup_theme']);
 	    $valid['start_date'] = sanitize_text_field($input['start_date']);
 	    $valid['end_date'] = sanitize_text_field($input['end_date']);
 	    $valid['popup_timezone'] = sanitize_text_field($input['popup_timezone']);
@@ -237,8 +238,16 @@ class WooPopupAdmin {
 
 	        $valid['popup_class'] = $this->data['popup_class'];
 	    }
+	    if (strlen($valid['popup_theme']) == 0) {
+	        add_settings_error(
+	                'popup_theme',
+	                'popup_theme_texterror',
+	                'Please choose a theme to display the pop up to',
+	                'error'
+	        );
 
-
+	        $valid['popup_class'] = $this->data['popup_class'];
+	    }
 	    if (strlen($valid['start_date']) == 0) {
 	        add_settings_error(
 	                'start_date',
