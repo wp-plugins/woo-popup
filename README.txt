@@ -1,5 +1,5 @@
 === woo-popup ===
-Contributors: Guillaume Kanoufi
+Contributors: guillaume-lostweb
 Donate link: http://lostwebdesigns.com/
 Tags: pop up, woocommerce, woopopup, modal window, display info after a product is added
 Requires at least: 3.5.1
@@ -57,6 +57,8 @@ Just activate the plugin then go to the woo-popup menu and customize to your nee
 1. No screenshots yet
 
 == Changelog ==
+
+
 
 = 1.3.1 =
 Added possibility to choose from prettyPhoto Themes(light, dark, facebook)
