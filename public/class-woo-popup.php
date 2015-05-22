@@ -28,7 +28,7 @@ class WooPopup {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.1';
+	const VERSION = '1.3.2';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -308,7 +308,7 @@ class WooPopup {
 	}
 
 	public function trigger_plugin(){
-		global $post, $popup_theme;
+		global $post, $popup_theme, $popup_appearance;
 		$options = get_option($this->options_slug);
 		$tz = $options['popup_timezone'];
 		date_default_timezone_set($tz);
@@ -318,6 +318,7 @@ class WooPopup {
 		$start_date = $options['start_date'];
 		$end_date = $options['end_date'];
 		$popup_theme = $options['popup_theme'];
+		$popup_appearance = $options['popup_appearance'];
 		$diff_start = strtotime($today) - strtotime($start_date);
 		$diff_end = strtotime($end_date) - strtotime($today);
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins'  )  )  ) && is_shop()){
@@ -342,7 +343,13 @@ class WooPopup {
 			$pp_dir['style'] = $woocommerce->plugin_url() . '/assets/css/prettyPhoto.css';
 			$pp_dir['ver'] = $woocommerce->version;
 		}else{
-			$pp_dir['base'] = plugins_url( '/assets/js/jquery.prettyPhoto.js', __FILE__ );
+			$cdnPrettyPhoto = '//cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js';
+			$test_url = @fopen($cdnPrettyPhoto,'r'); // test parameters
+			if($test_url !== false) { // test if the URL exists
+				$pp_dir['base'] = '//cdn.jsdelivr.net/prettyphoto/3.1.6/js/jquery.prettyPhoto.js';
+			} else {
+				$pp_dir['base'] = plugins_url( '/assets/js/jquery.prettyPhoto.js', __FILE__ );
+			}
 			$pp_dir['style'] = plugins_url( '/assets/css/prettyPhoto.css', __FILE__ );
 			$pp_dir['ver'] = '';
 		}
@@ -369,7 +376,7 @@ class WooPopup {
 	 */
 	public function enqueue_scripts() {
 		if($this->trigger_plugin() == true){
-			global $woocommerce, $popup_theme;
+			global $woocommerce, $popup_theme, $popup_appearance;
 			$pp_dir = $this->activated_woocommerce();
 			wp_enqueue_script( 'prettyPhoto', $pp_dir['base'] , array( 'jquery' ), $pp_dir['ver'] );
 
@@ -379,6 +386,7 @@ class WooPopup {
 			// Passing Plugin Options to js
 			$plugin_data = array(
 			    'theme' =>  $popup_theme,
+			    'appearance' => $popup_appearance,
 			);
 			wp_localize_script( $this->plugin_slug . '-plugin-script', 'plugin_options_vars', $plugin_data );
 		}

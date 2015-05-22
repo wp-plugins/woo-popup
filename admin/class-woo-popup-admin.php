@@ -198,6 +198,7 @@ class WooPopupAdmin {
 	    $valid['start_date'] = sanitize_text_field($input['start_date']);
 	    $valid['end_date'] = sanitize_text_field($input['end_date']);
 	    $valid['popup_timezone'] = sanitize_text_field($input['popup_timezone']);
+	     $valid['popup_appearance'] = sanitize_text_field($input['popup_appearance']);
 
 	    if(isset($input['popup_permanent'])){
 	    	  $valid['popup_permanent'] = sanitize_text_field($input['popup_permanent']);
@@ -227,26 +228,6 @@ class WooPopupAdmin {
 	        );
 
 	        $valid['popup_page'] = $this->data['popup_page'];
-	    }
-	    if (strlen($valid['popup_class']) == 0) {
-	        add_settings_error(
-	                'popup_class',
-	                'popup_class_texterror',
-	                'Please choose a class to display the pop up to',
-	                'error'
-	        );
-
-	        $valid['popup_class'] = $this->data['popup_class'];
-	    }
-	    if (strlen($valid['popup_theme']) == 0) {
-	        add_settings_error(
-	                'popup_theme',
-	                'popup_theme_texterror',
-	                'Please choose a theme to display the pop up to',
-	                'error'
-	        );
-
-	        $valid['popup_class'] = $this->data['popup_class'];
 	    }
 	    if (strlen($valid['start_date']) == 0) {
 	        add_settings_error(

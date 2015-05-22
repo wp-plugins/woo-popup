@@ -35,6 +35,7 @@
 				$start_date = $options['start_date'];
 				$end_date = $options['end_date'];
 				$timezone = $options['popup_timezone'];
+				$appearance = $options['popup_appearance'];
 
 				/*
 				* Set up hidden fields
@@ -99,6 +100,7 @@
 
 	            	</tr>
 	            	<tr>
+	            	<?php if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) :?>
 	            	<tr>
 	            		<th scope="row">
 	            			<label><?php _e('If using woocommerce, you can choose from woocommerce-message classes (message, info or error) else it will add a custom class of woopopup-yourchoice (your choice being: message, info or error) so you will be able to style it in your css', $this->plugin_slug);?>:</label>
@@ -113,31 +115,33 @@
 	            		</td>
 
 	            	</tr>
+	            <?php endif;?>
+
 	            	<tr>
 	                    <th scope="row">
 		                    <label><?php _e('Make the popup permanent (no dates selections)', $this->plugin_slug);?>:</label>
-		                </th>
-		                <td>
-		                    <input type="checkbox" id="woo-popup_permanent" name="<?php echo $this->options_slug;?>[popup_permanent]" value="1" <?php if($permanent == '1') echo 'checked';?>/>
-	                    </td>
-	                 </tr>
-	                <tr class="woo-popup_dates">
+				</th>
+				<td>
+				    <input type="checkbox" id="woo-popup_permanent" name="<?php echo $this->options_slug;?>[popup_permanent]" value="1" <?php if($permanent == '1') echo 'checked';?>/>
+				  </td>
+			</tr>
+	              <tr class="woo-popup_dates">
 	                    <th scope="row">
 		                    <label><?php _e('Begining Date', $this->plugin_slug);?>:</label>
 		                </th>
 		                <td>
 		                    <input type="text" id="woo-popup-from" class="wpopup_date" name="<?php echo $this->options_slug;?>[start_date]" value="<?php echo $start_date;?>"/>
 	                    </td>
-	                 </tr>
-	                 <tr class="woo-popup_dates">
+	              </tr>
+	              <tr class="woo-popup_dates">
 	                    <th scope="row">
 		                    <label><?php _e('End Date', $this->plugin_slug);?>:</label>
 		               </th>
 		               <td>
 		                    <input type="text" id="woo-popup-to" class="wpopup_date" name="<?php echo $this->options_slug;?>[end_date]" value="<?php echo $end_date;?>"/>
 	                    </td>
-	                </tr>
-	                <tr class="woo-popup_dates">
+	              </tr>
+	              <tr class="woo-popup_dates">
 	                		<?php $tzl = DateTimeZone::listIdentifiers();?>
 	                    <th scope="row">
 		                    <label><?php _e('Choose your Timezone', $this->plugin_slug);?>:</label>
@@ -149,7 +153,17 @@
 	            				<?php endforeach;?>
 	            			</select>
 	                    </td>
-	                </tr>
+	              </tr>
+	              <tr>
+	                    <th scope="row">
+		                    <label><?php _e('Show only to first time visitors or everytime the page is loaded', $this->plugin_slug);?>:</label>
+				</th>
+				<td>
+				    <select name="<?php echo $this->options_slug;?>[popup_appearance]" >
+	            				<option value="repeat" <?php if($appearance == 'repeat') echo 'selected';?>>Show on every page load</option>
+						<option value="once" <?php if($appearance == 'once') echo 'selected';?>>Show only to first time Visitors</option>
+	            			</select>
+			</tr>
 	            </table>
 
 	            <p class="submit">
