@@ -1,10 +1,10 @@
 === woo-popup ===
-Contributors: Guillaume Kanoufi
+Contributors: guillaume-lostweb
 Donate link: http://lostwebdesigns.com/
 Tags: pop up, woocommerce, woopopup, modal window, display info after a product is added
 Requires at least: 3.5.1
-Tested up to: 3.9
-Stable tag: 1.2.2
+Tested up to: 4.2
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,15 @@ Just activate the plugin then go to the woo-popup menu and customize to your nee
 
 == Changelog ==
 
+= 1.3.2 =
+Show/hide  popup for returning visitors(js cookies) and if possble load cdn hosted version of prettyPhoto
+
+= 1.3.1 =
+Added possibility to choose from prettyPhoto Themes(light, dark, facebook)
+
+= 1.3.0 =
+Updated PrettyPhoto to 3.1.6 patching an XSS issue
+
 = 1.2.2 =
 Fixed fatal error with is_shop
 
@@ -76,6 +85,9 @@ Added wpaoutop for formatting and possibility to add a class to the content.
 
 
 == Updates ==
+
+= 1.3 =
+Updated PrettyPhoto and 2 more options, show/hide to returning visitors as well as prettyPhoto theming and cdn loading of the prettyPhoto.js file
 
 = 1.2 =
 Added option to display the popup permanently(no dates would then need to be selected) and possibility to choose the timezone you are in.
